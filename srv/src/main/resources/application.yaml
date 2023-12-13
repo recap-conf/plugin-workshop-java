@@ -1,0 +1,17 @@
+---
+spring:
+  config.activate.on-profile: default
+cds:
+  datasource:
+    auto-config.enabled: false
+  security:
+    mock.users:
+      admin:
+        password: admin
+        roles:
+          - admin
+      alice:
+        password:
+        roles:
+          - support
+
