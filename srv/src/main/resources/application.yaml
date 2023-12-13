@@ -1,6 +1,6 @@
----
 spring:
   config.activate.on-profile: default
+  web.resources.static-locations: file:./app/
 cds:
   datasource:
     auto-config.enabled: false
@@ -11,7 +11,6 @@ cds:
         roles:
           - admin
       alice:
-        password:
+        password: null
         roles:
           - support
-

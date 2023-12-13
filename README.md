@@ -22,13 +22,14 @@ CAP Java based Incident Management Application.
     cd srv && mvn cds:watch
     ```
 4. Go to `localhost:8080` and you will get the list of exposed endpoints.
-5. Test the following endpoint: `http://localhost:8080/odata/v4/AdminService/Customers`
+5. Test the following endpoint: `http://localhost:8080/odata/v4/ProcessorService/Incidents`
 6. When you are prompted to authenticate, use the following credentials:
-       - Username: admin
-       - Password: admin
-7. When you are testing `ProcessorService` endpoints, use the following credentials:
        - Username: alice
-       - password:
+       - Password:
+7. To access the Incident Management Application WebApp, use the following url : `http://localhost:8080/incidents/webapp/index.html`
+7. When you are testing `AdminService` endpoints, use the following credentials:
+       - Username: admin
+       - password: admin
 ## Deploy and Test Incidents Management Application on BTP CF
 
 1. In the root folder do:

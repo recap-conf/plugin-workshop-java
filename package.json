@@ -5,7 +5,8 @@
   "license": "ISC",
   "repository": "<Add your repository here>",
   "devDependencies": {
-    "@sap/cds-dk": "^7"
+    "@sap/cds-dk": "^7",
+    "@sap/ux-specification": "^1.120.0"
   },
   "cds": {
     "requires": {
@@ -24,5 +25,8 @@
         "kind": "sql"
       }
     }
-  }
+  },
+  "sapux": [
+    "app/incidents"
+  ]
 }
