@@ -22,7 +22,9 @@ CAP Java based Incident Management Application.
 6. When you are prompted to authenticate, use the following credentials:
        - Username: admin
        - Password: admin
-
+7. When you are testing `ProcessorService` endpoints, use the following credentials:
+       - Username: alice
+       - password:
 ## Deploy and Test Incidents Management Application on BTP CF
 
 1. In the root folder do:
