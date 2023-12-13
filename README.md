@@ -2,6 +2,10 @@
 
 CAP Java based Incident Management Application.
 
+## Prerquisites:
+ 
+ Make sure you have Java 17+ version installed in your machine.
+
 ## Run and Test the Incidents Management Application Locally
 
 1. Clone the Incident Management application repository:
