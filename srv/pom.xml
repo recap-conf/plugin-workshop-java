@@ -5,7 +5,7 @@
 
 	<parent>
 		<artifactId>incident-management-parent</artifactId>
-		<groupId>customer</groupId>
+		<groupId>com.sap.cap</groupId>
 		<version>${revision}</version>
 	</parent>
 
@@ -49,16 +49,6 @@
      	    <artifactId>cds-starter-cloudfoundry</artifactId>
 			<version>2.4.1</version>
    		</dependency>
-		<!--security dependency-->
-		<!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-		<dependency>
-			<groupId>com.sap.cloud.security</groupId>
-			<artifactId>resourceserver-security-spring-boot-starter</artifactId>
-			<version>3.2.1</version>
-		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

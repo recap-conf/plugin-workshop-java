@@ -1,13 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>customer</groupId>
+    <groupId>com.sap.cap</groupId>
     <artifactId>incident-management-parent</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
     <name>incident-management parent</name>
-    <properties>
-        
-        
+    <properties>  
         <revision>1.0.0-SNAPSHOT</revision>
         <jdk.version>17</jdk.version>
         <cds.services.version>2.0.1</cds.services.version>
@@ -19,9 +17,7 @@
         <module>srv</module>
     </modules>
     <dependencyManagement>
-        <dependencies>
-            
-            
+        <dependencies>   
             <dependency>
                 <groupId>com.sap.cds</groupId>
                 <artifactId>cds-services-bom</artifactId>
@@ -40,12 +36,7 @@
     </dependencyManagement>
     <build>
         <plugins>
-            
-            
-            
-            
-            
-            <plugin>
+        <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
