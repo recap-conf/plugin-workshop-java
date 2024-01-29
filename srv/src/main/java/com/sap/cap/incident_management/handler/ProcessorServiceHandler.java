@@ -1,22 +1,18 @@
 package com.sap.cap.incident_management.handler;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.logging.Level;
-import com.sap.cds.services.*;
+import cds.gen.processorservice.Incidents;
+import cds.gen.processorservice.ProcessorService_;
+import com.sap.cds.services.ErrorStatuses;
+import com.sap.cds.services.ServiceException;
+import com.sap.cds.services.cds.CqnService;
+import com.sap.cds.services.handler.EventHandler;
+import com.sap.cds.services.handler.annotations.Before;
+import com.sap.cds.services.handler.annotations.ServiceName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.sap.cds.services.cds.CqnService;
-import com.sap.cds.services.handler.EventHandler;
-import com.sap.cds.services.handler.annotations.*;
-import com.sap.cds.services.handler.annotations.ServiceName;
-
-import cds.gen.processorservice.Incidents;
-import cds.gen.processorservice.Urgency;
-import cds.gen.processorservice.ProcessorService_;
-import cds.gen.processorservice.Incidents_;
+import java.util.Locale;
 
 @Component
 @ServiceName(ProcessorService_.CDS_NAME)  
