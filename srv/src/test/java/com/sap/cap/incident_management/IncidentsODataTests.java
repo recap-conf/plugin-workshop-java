@@ -25,6 +25,10 @@ class IncidentsODataTests {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * Test GET Api for Incidents
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "alice")
     void incidentReturned() throws Exception {
@@ -33,6 +37,11 @@ class IncidentsODataTests {
                 .andExpect(jsonPath("$.value", hasSize(4)));
 
     }
+
+    /**
+     * Test GET Api for Customers
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "alice")
     void customertReturned() throws Exception {
@@ -42,6 +51,11 @@ class IncidentsODataTests {
 
     }
 
+    /**
+     * Test to ensure there is an Incident created by each Customer.
+     * @throws Exception
+     */
+
     @Test
     @WithMockUser(username = "alice")
     void expandEntityEndpoint() throws Exception {
@@ -50,6 +64,12 @@ class IncidentsODataTests {
         .andExpect(jsonPath("$.value[0].incidents[0]").isNotEmpty());
 
     }
+
+    /**
+     * Test to create an Incident.
+     * Test custom handler ensuring High Urgency For Incidents With "Urgent" in Title
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "alice")
     void createIncident() throws Exception {
@@ -65,6 +85,12 @@ class IncidentsODataTests {
                 .andExpect(jsonPath("$.status_code").value("N"))
                 .andExpect(jsonPath("$.urgency_code").value("H"));
     }
+
+    /**
+     * Test for creating an Incident
+     * Test for closing the Incident
+     * Test for custom handler ensuing prevent users from modifying a closed Incident
+     */
 
     @Test
     @WithMockUser(username = "alice")
@@ -85,7 +111,9 @@ class IncidentsODataTests {
                 String createResponseContent = createResult.getResponse().getContentAsString();
                 String ID = JsonPath.read(createResponseContent, "$.ID");
                 System.out.println("Incident ID : " + ID);
-
+/**
+ * Closing an open Incident
+ */
         MvcResult updateResult=  mockMvc.perform(MockMvcRequestBuilders.patch("/odata/v4/ProcessorService/Incidents(ID="+ID+",IsActiveEntity=true)")
                 .content(incidentUpdateJson)
                 .contentType("application/json")
@@ -99,7 +127,9 @@ class IncidentsODataTests {
                 String statusCode = JsonPath.read(updateResponseContent, "$.status_code");
                 System.out.println("status code : " + statusCode);
 
-
+/**
+ * Updating a Closed Incident will throw an error with error message "Can't modify a closed incident"
+ */
             mockMvc.perform(MockMvcRequestBuilders.patch("/odata/v4/ProcessorService/Incidents(ID="+ID+",IsActiveEntity=true)")
                 .content(closedIncidentUpdateJson)
                 .contentType("application/json")
