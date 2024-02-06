@@ -32,6 +32,7 @@ public class ProcessorServiceHandler implements EventHandler {
  * Change the urgency of an incident to "high" if the title contains the word "urgent"
  */
 	private static final Logger logger = LoggerFactory.getLogger(ProcessorServiceHandler.class);
+
 	@Before(event = CqnService.EVENT_CREATE)  
 	public void ensureHighUrgencyForIncidentsWithUrgentInTitle(List<Incidents> incidents) {  
 		for (Incidents incident : incidents) {
@@ -50,6 +51,7 @@ public class ProcessorServiceHandler implements EventHandler {
 	public void onUpdate(Incidents incident) { 
         Incidents in = db.run(Select.from((Class<Incidents_>) Incidents_.class).where(i -> i.ID().eq(incident.getId()))).single(Incidents.class);
 		if(in.getStatusCode().equals("C")){
+			logger.error("Incident"+ incident.getId() +"has already been closed");  
             throw new ServiceException(ErrorStatuses.CONFLICT, "Can't modify a closed incident");
         }
 

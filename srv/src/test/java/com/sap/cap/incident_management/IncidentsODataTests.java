@@ -31,7 +31,7 @@ class IncidentsODataTests {
      */
     @Test
     @WithMockUser(username = "alice")
-    void incidentReturned() throws Exception {
+    void incidentReturned(@Autowired MockMvc mockMvc) throws Exception {
         mockMvc.perform(get(incidentsURI))
             .andExpect(status().isOk())
                 .andExpect(jsonPath("$.value", hasSize(4)));
@@ -65,30 +65,61 @@ class IncidentsODataTests {
 
     }
 
+
     /**
-     * Test to create an Incident.
-     * Test custom handler ensuring High Urgency For Incidents With "Urgent" in Title
-     * @throws Exception
+     * Test for creating an Draft Incident
+     * Activating the draft Incident and check Urgency code as H using custom logic
+     * Delete the Incident
      */
-    @Test
-    @WithMockUser(username = "alice")
-    void createIncident() throws Exception {
-        String incidentJson = "{ \"title\": \"Urgent attention required!\", \"status_code\": \"N\", \"urgency_code\": \"M\", \"IsActiveEntity\": true }";
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/odata/v4/ProcessorService/Incidents")
-                .content(incidentJson)
-                .contentType("application/json")
-                .accept("application/json"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$").isMap())
-                .andExpect(jsonPath("$.title").value("Urgent attention required!"))
-                .andExpect(jsonPath("$.status_code").value("N"))
-                .andExpect(jsonPath("$.urgency_code").value("H"));
-    }
+     @Test
+     @WithMockUser(username = "alice")
+     void draftIncident() throws Exception {
+         String incidentCreateJson = "{ \"title\": \"Urgent attention required!\", \"status_code\": \"N\",\"urgency_code\": \"M\"}";
+
+                /**
+                  * Create a draft Incident
+                  */
+
+                MvcResult createResult=  mockMvc.perform(MockMvcRequestBuilders.post("/odata/v4/ProcessorService/Incidents")
+                 .content(incidentCreateJson)
+                 .contentType("application/json")
+                 .accept("application/json"))
+                 .andExpect(status().isCreated())
+                 .andExpect(jsonPath("$.title").value("Urgent attention required!"))
+                 .andExpect(jsonPath("$.status_code").value("N"))
+                 .andExpect(jsonPath("$.urgency_code").value("M"))
+                 .andReturn();
+ 
+                 String createResponseContent = createResult.getResponse().getContentAsString();
+                 String ID = JsonPath.read(createResponseContent, "$.ID");
+                 System.out.println("Incident ID : " + ID);
+         
+                 /**
+                  * Activating the draft Incident
+                  */
+
+                 mockMvc.perform(MockMvcRequestBuilders.post("/odata/v4/ProcessorService/Incidents(ID="+ID+",IsActiveEntity=false)/ProcessorService.draftActivate")
+                 .contentType("application/json")
+                 .accept("application/json"))
+                 .andExpect(status().isOk())
+                 .andExpect(jsonPath("$").isMap())
+                 .andExpect(jsonPath("$.title").value("Urgent attention required!"))
+                 .andExpect(jsonPath("$.status_code").value("N"))
+                 .andExpect(jsonPath("$.urgency_code").value("H"));  
+
+                /**
+                 * Deleting an Incident
+                 */
+
+                 mockMvc.perform(MockMvcRequestBuilders.delete("/odata/v4/ProcessorService/Incidents(ID="+ID+",IsActiveEntity=true)"))
+                 .andExpect(status().is(204));
+     }
+
 
     /**
-     * Test for creating an Incident
-     * Test for closing the Incident
+     * Test for creating an Active Incident
+     * Test for closing the Active Incident
      * Test for custom handler ensuing prevent users from modifying a closed Incident
      */
 
