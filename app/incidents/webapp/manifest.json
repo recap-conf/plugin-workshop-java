@@ -15,6 +15,18 @@
             "version": "1.10.3",
             "toolsId": "f4ed670b-c6f0-44f6-a567-0bcb269dc6f7"
         },
+        "crossNavigation": {
+            "inbounds": {
+              "intent1": {
+                "signature": {
+                  "parameters": {},
+                  "additionalParameters": "allowed"
+                },
+                "semanticObject": "Incidents",
+                "action": "display"
+              }
+            }
+          },
         "dataSources": {
             "mainService": {
                 "uri": "/odata/v4/ProcessorService/",

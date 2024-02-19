@@ -8,8 +8,11 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
+        - rm -rf incident-management-ui-deployer/resources
         - npx -p @sap/cds-dk cds build --profile production,java
         - npx -p @sap/cds-dk cds build --profile production,hana
+        - npm install --production
+        - mkdir srv/src/gen/ui-resources
 modules:
   - name: incident-management-srv
     type: java
@@ -40,6 +43,64 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: incident-management-db
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+  - name: incident-management-ui-resources
+    type: com.sap.application.content
+    path: srv/src/gen/ui-resources
+    requires:
+      - name: incident-management-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      requires:
+        - name: incident-management
+          artifacts:
+            - ./*.zip
+          target-path: .
+  - name: incident-management
+    type: html5
+    path: app/incidents
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx -p @ui5/cli ui5 build --dest ../../gen/app/incidents/dist --include-task=generateManifestBundle --include-task=generateCachebusterInfo
+        - bash -c "cd ../../gen/app/incidents/dist && npx bestzip ../incidents.zip *"
+      supported-platforms: []
+      build-result: ../../gen/app/incidents
+  - name: incident-management-portal-content-deployer
+    type: com.sap.application.content
+    path: packages/deploy-int/portal-content
+    requires:
+      - name: incident-management-portal
+        parameters:
+          content-target: true
+          service-key:
+            name: incident-management-portal-deploy-key
+            config:
+              content-endpoint: developer
+      - name: incident-management-auth
+      - name: incident-management-html5-repo-host
+      - name: incident-management-ui-resources
+  - name: incident-management-approuter
+    type: nodejs
+    path: packages/deploy-int/approuter
+    parameters:
+      memory: 128M
+    requires:
+      - name: incident-management-auth
+      - name: incident-management-portal
+      - name: incident-management-html5-repo-runtime
+      - name: srv-api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: true
+          name: srv-api
+          url: '~{srv-url}'
 
 resources:
   - name: incident-management-auth
@@ -56,3 +117,18 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+  - name: incident-management-portal
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: standard
+      service: portal
+  - name: incident-management-html5-repo-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+  - name: incident-management-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
