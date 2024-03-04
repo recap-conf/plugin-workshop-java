@@ -67,9 +67,13 @@ modules:
       builder: custom
       commands:
         - npm install
-        - npx -p @ui5/cli ui5 build --dest ../../gen/app/incidents/dist --include-task=generateManifestBundle --include-task=generateCachebusterInfo
-        - bash -c "cd ../../gen/app/incidents/dist && npx bestzip ../incidents.zip *"
-      supported-platforms: []
+        - npx -p @ui5/cli ui5 build --dest ../../gen/app/incidents/dist
+          --include-task=generateManifestBundle
+          --include-task=generateCachebusterInfo
+        - bash -c "cd ../../gen/app/incidents/dist && npx bestzip
+          ../incidents.zip *"
+      supported-platforms:
+        []
       build-result: ../../gen/app/incidents
   - name: incident-management-portal-content-deployer
     type: com.sap.application.content
