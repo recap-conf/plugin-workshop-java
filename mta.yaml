@@ -8,7 +8,6 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - rm -rf incident-management-ui-deployer/resources
         - npx -p @sap/cds-dk cds build --profile production,java
         - npx -p @sap/cds-dk cds build --profile production,hana
         - npm install --production
