@@ -48,6 +48,12 @@
       		<groupId>com.sap.cds</groupId>
      	    <artifactId>cds-starter-cloudfoundry</artifactId>
    		</dependency>
+
+		<dependency>
+			<groupId>com.sap.cds</groupId>
+			<artifactId>cds-feature-change-tracking</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -115,6 +121,13 @@
 						<configuration>
 							<skip>${cdsdk-global}</skip>
 						</configuration>
+					</execution>
+
+					<execution>
+						<id>cds.resolve</id>
+						<goals>
+							<goal>resolve</goal>
+						</goals>
 					</execution>
 
 					<execution>

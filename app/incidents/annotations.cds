@@ -11,7 +11,6 @@ annotate service.Incidents with {
     status @Common.Label : '{i18n>Status}'
 };
 
-
 annotate service.Incidents with {
     urgency @Common.Label : '{i18n>Urgency}'
 };
@@ -85,8 +84,15 @@ annotate service.Incidents with @(
             $Type : 'UI.ReferenceFacet',
             Label : 'Conversations',
             ID : 'Conversations',
-            Target : 'conversations/@UI.LineItem#Conversations',
+            Target : 'conversation/@UI.LineItem#Conversations',
         },
+        {
+            $Type               : 'UI.ReferenceFacet',
+            ID                  : 'ChangeHistoryFacet',
+            Label               : '{i18n>ChangeHistory}',
+            Target              : 'changes/@UI.PresentationVariant',
+            ![@UI.PartOfPreview]: false
+        }
     ]
 );
 annotate service.Incidents with @(
@@ -155,7 +161,8 @@ annotate service.Incidents with {
 annotate service.Status with {
     code @Common.Text : descr
 };
-annotate service.Conversations with @(
+annotate service.Incidents.conversation with @(
+    title : '{i18n>Conversation}',
     UI.LineItem #Conversations : [
         {
             $Type : 'UI.DataField',

@@ -9,6 +9,8 @@ service ProcessorService {
 
 }
 
+annotate ProcessorService.Incidents.conversation with @title: '{i18n>Converstation}';
+
 extend projection ProcessorService.Customers with {
   firstName || ' ' || lastName as name: String
 }
