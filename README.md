@@ -5,10 +5,9 @@ CAP Java based Incident Management Application.
 ## Prerquisites:
  
  Make sure you have Java 17+ version installed in your machine.
+ Copy included [`settings.xml`](config/maven/settings.xml) in your `~/.m2` directory.
 
 ## Run and Test the Incidents Management Application Locally
-
-NB: Copy included (`settings.xml`)[config/maven/settings.xml] in your `~/.m2` directory.
 
 1. Clone the Incident Management application repository:
 
