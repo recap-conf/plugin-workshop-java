@@ -5,19 +5,19 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
     <name>incident-management parent</name>
-    <properties>  
+    <properties>
         <revision>1.0.0-SNAPSHOT</revision>
         <jdk.version>17</jdk.version>
         <cds.services.version>2.10.0-m2419-1</cds.services.version>
-        <spring.boot.version>3.0.7</spring.boot.version>
-        <cds.install-cdsdk.version>7.6.1</cds.install-cdsdk.version>
+        <spring.boot.version>3.2.5</spring.boot.version>
+        <cds.install-cdsdk.version>7.8.0</cds.install-cdsdk.version>
         <cds.install-node.downloadUrl>https://nodejs.org/dist/</cds.install-node.downloadUrl>
     </properties>
     <modules>
         <module>srv</module>
     </modules>
     <dependencyManagement>
-        <dependencies>   
+        <dependencies>
             <dependency>
                 <groupId>com.sap.cds</groupId>
                 <artifactId>cds-services-bom</artifactId>
