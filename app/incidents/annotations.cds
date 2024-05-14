@@ -85,7 +85,7 @@ annotate service.Incidents with @(
             $Type : 'UI.ReferenceFacet',
             Label : 'Conversations',
             ID : 'Conversations',
-            Target : 'conversations/@UI.LineItem#Conversations',
+            Target : 'conversation/@UI.LineItem#Conversations',
         },
     ]
 );
@@ -155,7 +155,7 @@ annotate service.Incidents with {
 annotate service.Status with {
     code @Common.Text : descr
 };
-annotate service.Conversations with @(
+annotate service.Incidents.conversation with @(
     UI.LineItem #Conversations : [
         {
             $Type : 'UI.DataField',
