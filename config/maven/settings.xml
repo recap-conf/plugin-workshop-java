@@ -1,0 +1,80 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <mirrors>
+    <mirror>
+      <id>mirror1</id>
+      <url>https://int.repositories.cloud.sap/artifactory/build-milestones/</url>
+      <mirrorOf>*,!artifactory</mirrorOf>
+    </mirror>
+    <mirror>
+      <id>mirror2</id>
+      <url>https://int.repositories.cloud.sap/artifactory/proxy-cap-java/</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+    <profile>
+      <id>release.build</id>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>artifactory</id>
+          <url>https://int.repositories.cloud.sap/artifactory/build-releases/</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <repositories>
+        <repository>
+          <id>artifactory</id>
+          <url>https://int.repositories.cloud.sap/artifactory/build-releases/</url>
+        </repository>
+      </repositories>
+    </profile>
+
+    <profile>
+      <id>milestone.build</id>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>artifactory</id>
+          <url>https://int.repositories.cloud.sap/artifactory/build-milestones/</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <repositories>
+        <repository>
+          <id>artifactory</id>
+          <url>https://int.repositories.cloud.sap/artifactory/build-milestones/</url>
+        </repository>
+      </repositories>
+    </profile>
+
+    <profile>
+      <id>snapshot.build</id>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>artifactory</id>
+          <url>https://int.repositories.cloud.sap/artifactory/build-snapshots/</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <repositories>
+        <repository>
+          <id>cap-java</id>
+          <url>https://int.repositories.cloud.sap/artifactory/proxy-cap-java/</url>
+        </repository>
+        <repository>
+          <id>artifactory</id>
+          <url>https://int.repositories.cloud.sap/artifactory/build-snapshots/</url>
+        </repository>
+     </repositories>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>snapshot.build</activeProfile>
+  </activeProfiles>
+
+  <pluginGroups>
+    <pluginGroup>com.sap.ldi</pluginGroup>
+    <pluginGroup>com.sap.cds</pluginGroup>
+  </pluginGroups>
+
+</settings>

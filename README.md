@@ -8,6 +8,8 @@ CAP Java based Incident Management Application.
 
 ## Run and Test the Incidents Management Application Locally
 
+NB: Copy included (`settings.xml`)[config/maven/settings.xml] in your `~/.m2` directory.
+
 1. Clone the Incident Management application repository:
 
     ```sh
