@@ -1,7 +1,12 @@
+logging:
+  level:
+    '[com.sap.cds.auditlog]': DEBUG
 spring:
   config.activate.on-profile: default
   web.resources.static-locations: file:./app/
 cds:
+  odata-v4:
+    lazy-i18n.enabled: true
   datasource:
     auto-config.enabled: false
   security:
