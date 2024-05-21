@@ -1,0 +1,14 @@
+# Get customer
+GET http://localhost:8080/odata/v4/AdminService/Customers(8fc8231b-f6d7-43d1-a7e1-725c8e988d18)
+Authorization: Basic admin:admin
+Accept: application/json
+
+###
+# Update
+PATCH http://localhost:8080/odata/v4/AdminService/Customers(8fc8231b-f6d7-43d1-a7e1-725c8e988d18)
+Authorization: Basic admin:admin
+Content-Type: application/json
+
+{
+    "firstName": "Lucky"
+}
