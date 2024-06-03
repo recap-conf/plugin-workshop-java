@@ -101,7 +101,7 @@ mvn source:jar install
 
 ## Add the Plugin to the Base Application 
 
-The plugin is now ready to use. The base application's model can be extended and the plugin needs to be added to the list of dependencies.
+The plugin is now ready to use. The base application's model can be extended and the plugin needs to be added to the list of dependencies. Again, there is a shortcut: just checkout the branch `with-criticality` of this repo, install the `criticality-prebuilt` module and start the base application in `incidents-app-java` with `mvn spring-boot:run`.
 
 ### Adjust the Model of the Base Application
 
@@ -135,6 +135,12 @@ annotate my.Urgency with {
 };
 ```
 
+In order to have Criticality properly displayed in the Fiori Elements UI you also need to add the following CDS line to the `app/incidents/annotations.cds` below line 35:
+
+```
+            Criticality : urgency.criticality,
+```
+
 Add the dependency of the just created plugin to your `srv/pom.xml`:
 
 ```xml
@@ -160,3 +166,5 @@ Get the Incidents entities with expanded `urgency` association.
 GET http://localhost:8080/odata/v4/ProcessorService/Incidents?$expand=urgency
 Authorization: basic YWxpY2U6
 ```
+
+The results should now include an integer value for some Urgency elements (according to the annotations you made). You can also see the Incidents coloured and annotated with little symbols on the UI now: http://localhost:8080/incidents/webapp/index.html
