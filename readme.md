@@ -1,4 +1,4 @@
-# Create a crititcality plugin for CAP Java
+# Create a Crititcality Plugin for CAP Java Applications
 
 ## Prerequisites
 
@@ -12,13 +12,17 @@ You need to have the following tools installed:
 
 ## Requirement
 
-Write a CAP Java plugin that provides a handler that can detect CDS enum values annotated with `@criticality.*` and 
-ets the integer value according to the [criticality OData vocabulary](https://sap.github.io/odata-vocabularies/vocabularies/UI.html#CriticalityType)
+Write a CAP Java plugin that provides a handler detecting CDS enum values annotated with `@criticality.*` and 
+sets the integer value according to the [criticality OData vocabulary](https://sap.github.io/odata-vocabularies/vocabularies/UI.html#CriticalityType)
 to an `criticality` element of the same entity.
 
-Bones points: this works for expanded entities, too.
+Bonus points: this works for expanded entities, too.
 
-## Create a new plain Java project with Maven
+## With Shortcut: Use the Prebuilt Plugin
+
+In case you want to take the shortcut you can change to the `criticality-prebuilt` folder and install it to the plugin to the local Maven repository with `mvn source:jar install`. From here you can continue [extending the base application](#add-the-plugin-to-the-base-application).
+
+## Without Shortcut: Create a New Plain Java Project with Maven
 
 Use the Maven quickstart archetype to generate a plain, empty Java project:
 
@@ -27,7 +31,7 @@ mvn archetype:generate -DgroupId= -DartifactId=criticality -DarchetypeGroupId=co
 ```
 
 
-## Add needed dependencies
+## Add Needed Dependencies
 
 Replace the generated pom.xml with the following content. It contains the needed dependencies and the correct Java version:
 
@@ -67,12 +71,6 @@ Replace the generated pom.xml with the following content. It contains the needed
       <artifactId>cds-services-api</artifactId>
       <version>2.10.0</version>
     </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 </project>
 ```
@@ -81,28 +79,33 @@ Perform the initial build with `mvn compile`.
 
 ## Spring Boot Auto Configuration for the handler class
 
-Use Spring Boot autoconfiguration to register the handler automatically as soon the dependency is added to the pom.xml.
+Use [Spring Boot auto configuration](https://docs.spring.io/spring-boot/reference/using/auto-configuration.html) to register the handler automatically as soon the dependency is added to the pom.xml of the base application.
 
 ## Implement the handler
 
-Write the handler. Use the following resources as a reference:
+Write the handler. In contrast to the node.js implementation there is no dedicated registration per relevant entity at startup of the application. The handler needs to run for all services and all entities and detects at runtime if an entity is annotated and needs to be processed accordingly.
 
-* https://cap.cloud.sap/docs/java/reflection-api You use the reflection API to introspect the application's CDS model in
-  order to find relevant entities and elements.
-* https://cap.cloud.sap/docs/java/cds-data In the handler, you need to traverse the data in the result and act according
-  to the information you discovered in the CDS model.
+Use the following resources as a reference:
 
-## Install the handler to the local Maven repo
-In order to consume the new plugin from e.g. the Incidents App you need to install it to the local Maven repo. The `source:jar`
-goal adds the source code to the jar as well. You might need it for debugging. 😈
+* https://cap.cloud.sap/docs/java/event-handlers/ At the core this task is about writing a generic event handler for a CAP Java application. Thus the event handler documentation is the foundation for this. 
+* https://cap.cloud.sap/docs/java/reflection-api You use the reflection API to introspect the application's CDS model in order to find relevant entities and elements.
+* https://cap.cloud.sap/docs/java/cds-data In the handler, you need to traverse the data in the result and act according to the information you discovered in the CDS model.
+
+## Install the Handler to the Local Maven Repository
+
+Once the plugin is ready it can be consumed in the base application. In order to consume the new plugin from e.g. the Incidents App you need to install it to the local Maven repo. The `source:jar` goal adds the source code to the jar as well. You might need it for debugging. 😈
 
 ```
 mvn source:jar install
 ```
 
-## Adjust the model of the target application
+## Add the Plugin to the Base Application 
 
-Clone the Incidents App for Java: https://github.com/recap-conf/incidents-app-java
+The plugin is now ready to use. The base application's model can be extended and the plugin needs to be added to the list of dependencies.
+
+### Adjust the Model of the Base Application
+
+Change to the incidents-app-java folder:
 
 Create a `criticality.cds file` in the `db` module and paste the following content: 
 
@@ -142,14 +145,18 @@ Add the dependency of the just created plugin to your `srv/pom.xml`:
 </dependency>
 ```
 
-Start the application and execute some HTTP requests:
+Start the base application with `mvn spring-boot:run`.
 
+Finally, execute some HTTP requests.
+
+Directly get the Urgency entities:
 ```http
 GET http://localhost:8080/odata/v4/ProcessorService/Urgency
 Authorization: basic YWxpY2U6
+```
 
-###
-
+Get the Incidents entities with expanded `urgency` association.
+```http
 GET http://localhost:8080/odata/v4/ProcessorService/Incidents?$expand=urgency
 Authorization: basic YWxpY2U6
 ```
