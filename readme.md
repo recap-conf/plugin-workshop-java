@@ -1,4 +1,4 @@
-# Create a Crititcality Plugin for CAP Java Applications
+# Create a Criticality Plugin for CAP Java Applications
 
 ## Prerequisites
 
