@@ -33,6 +33,7 @@ annotate service.Incidents with @(
             $Type : 'UI.DataField',
             Value : urgency.descr,
             Label : '{i18n>Urgency}',
+            Criticality : urgency.criticality,
         },
         {
             $Type : 'UI.DataField',
@@ -86,7 +87,7 @@ annotate service.Incidents with @(
             Label : 'Conversations',
             ID : 'Conversations',
             Target : 'conversation/@UI.LineItem#Conversations',
-        },
+        }
     ]
 );
 annotate service.Incidents with @(
