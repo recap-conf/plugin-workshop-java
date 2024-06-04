@@ -9,9 +9,9 @@
   <url>http://maven.apache.org</url>
   <properties>
 	  <maven.compiler.release>17</maven.compiler.release>
-	  <cds.services.version>2.10.0</cds.services.version>
           <maven.compiler.target>17</maven.compiler.target>
           <maven.compiler.source>17</maven.compiler.source>
+	  <cds.services.version>2.10.0</cds.services.version>
   </properties>
   <dependencyManagement>
     <dependencies>

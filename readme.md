@@ -46,6 +46,8 @@ Replace the generated pom.xml with the following content. It contains the needed
   <name>criticality</name>
   <url>http://maven.apache.org</url>
   <properties>
+      <maven.compiler.target>17</maven.compiler.target>
+      <maven.compiler.source>17</maven.compiler.source>
 	  <maven.compiler.release>17</maven.compiler.release>
 	  <cds.services.version>2.10.0</cds.services.version>
   </properties>
