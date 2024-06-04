@@ -27,7 +27,7 @@ In case you want to take the shortcut you can change to the `criticality-prebuil
 Use the Maven quickstart archetype to generate a plain, empty Java project:
 
 ```
-mvn archetype:generate -DgroupId= -DartifactId=criticality -DarchetypeGroupId=com.sap.capire -DarchetypeArtifactId=maven-archetype-quickstart -Dversion=1.0-SNAPSHOT -DinteractiveMode=false
+mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DartifactId=criticality -DgroupId=com.sap.capire -Dversion=1.0-SNAPSHOT -DinteractiveMode=false
 ```
 
 
