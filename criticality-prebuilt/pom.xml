@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.sap.capire</groupId>
@@ -8,10 +9,12 @@
   <name>criticality</name>
   <url>http://maven.apache.org</url>
   <properties>
-	  <maven.compiler.release>17</maven.compiler.release>
-          <maven.compiler.target>17</maven.compiler.target>
-          <maven.compiler.source>17</maven.compiler.source>
-	  <cds.services.version>2.10.0</cds.services.version>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <cds.services.version>2.10.0</cds.services.version>
+    <junit.version>5.10.0</junit.version>
+    <spring.boot.version>3.3.1</spring.boot.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -28,17 +31,17 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
-      <version>3.2.6</version>
+      <version>${spring.boot.version}</version>
     </dependency>
     <dependency>
       <groupId>com.sap.cds</groupId>
       <artifactId>cds-services-api</artifactId>
-      <version>2.10.0</version>
+      <version>${cds.services.version}</version>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
